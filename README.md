@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EPL Team Manager
 
-## Getting Started
+A web app built with **Next.js**, **Redux Toolkit**, and **react-hook-form + Zod**, using the [balldontlie API](https://api.balldontlie.io/epl/v1/players) to manage EPL football players and custom teams.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✅ Features Implemented
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🔐 Authentication
+- Username-based login using **Redux**.
+- Auth state persisted with **Redux Persist** (local storage).
+- Displays username after login.
+- Logout functionality implemented.
+- No backend API used for authentication (as per instructions).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 👥 Player Management
+- Players are fetched from the `balldontlie` API using `useInfiniteQuery`.
+- **Infinite scroll** on the homepage, showing 10 players per request.
+- Skeleton cards displayed while loading.
+- Error and rate-limit handling with `react-hot-toast`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🏀 Team CRUD (Create, Read, Update, Delete)
+- Team management is implemented on a **separate route** (`/teams`).
+- Each team supports:
+  - `name` (must be unique)
+  - `region`
+  - `country`
+  - auto-calculated `player count`
+- Team data is stored in **Redux state** and persisted with **local storage**.
+- All CRUD actions use **ShadCN dialogs** (modal popups).
 
-## Learn More
+### 👨‍👦 Player Assignment to Teams
+- Players can be added to a team from a dropdown menu inside each team's **Manage Squad** view.
+- Players are **unique per team** (i.e., cannot belong to more than one team).
+- When a team is deleted, its players are automatically unassigned.
+- You can **remove** players from a team individually.
 
-To learn more about Next.js, take a look at the following resources:
+### ✅ Form Handling & Validation
+- Team forms are built with **react-hook-form** and validated using **Zod**.
+- Team names must be unique (validated both in form and Redux logic).
+- Handles all error and success states with proper user feedback.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Tech Stack
+- **Next.js**
+- **Redux Toolkit** with `redux-persist`
+- **TanStack Query** (`react-query`)
+- **react-hook-form** + **Zod**
+- **Tailwind CSS** + **ShadCN UI**
+- **Lucide Icons**
+- **balldontlie API**
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
