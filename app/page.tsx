@@ -14,6 +14,12 @@ import { useRouter } from "next/navigation";
 import PlayerCardSkeleton from "@/components/player-card-skeleton";
 import { Header } from "@/components/header";
 
+function isRateLimitError(
+  error: unknown
+): error is Error & { isRateLimit: boolean } {
+  return typeof error === "object" && error !== null && "isRateLimit" in error;
+}
+
 const HomePage = () => {
   const [rateLimited, setRateLimited] = useState(false);
   const router = useRouter();
@@ -38,7 +44,7 @@ const HomePage = () => {
   useEffect(() => {
     if (isError) {
       console.error("Error fetching players:", error);
-      if ((error as any)?.isRateLimit) {
+      if (isRateLimitError(error)) {
         toast.error(error.message);
         setRateLimited(true);
         setTimeout(() => setRateLimited(false), 30000);

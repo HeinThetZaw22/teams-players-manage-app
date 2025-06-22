@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { Montserrat, Roboto } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
-import BottonNavbar from "@/components/bottom-nav";
 import StoreProvider from "./redux";
 import { QueryProvider } from "@/lib/query-provider";
 import { Toaster } from "react-hot-toast";
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-roboto",
-  display: "swap",
-});
 
 const montserrat = Montserrat({
   subsets: ["latin"],
