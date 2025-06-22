@@ -1,5 +1,4 @@
 "use client"
-import { useRef } from "react";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   TypedUseSelectorHook,
@@ -10,7 +9,6 @@ import {
 
 import authReducer from "@/state/authSlice";
 import teamReducer from "@/state/teamSlice";
-import playerReducer from "@/state/playerSlice";
 
 import {
   persistStore,
@@ -48,13 +46,12 @@ const storage =
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth", "teams", "players"],
+  whitelist: ["auth", "teams"],
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
   teams: teamReducer,
-  players: playerReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
